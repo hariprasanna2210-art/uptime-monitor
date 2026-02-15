@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/app.js",
     "dev": "nodemon src/app.ts",
-    "build": "tsc",
+    "build": "npx prisma generate && tsc",
     "lint": "eslint src/**/*.ts",
     "test": "jest",
     "monitor": "ts-node src/services/monitor.ts"
