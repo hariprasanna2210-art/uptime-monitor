@@ -29,8 +29,9 @@ export const getWebsites = async (req: AuthRequest, res: Response) => {
 // @access  Private
 export const getWebsiteById = async (req: AuthRequest, res: Response) => {
     try {
+        const id = req.params.id as string;
         const website = await prisma.website.findFirst({
-            where: { id: req.params.id, user_id: req.user.id },
+            where: { id, user_id: req.user.id },
             include: {
                 logs: {
                     take: 20,
@@ -77,12 +78,13 @@ export const addWebsite = async (req: AuthRequest, res: Response) => {
 // @access  Private
 export const deleteWebsite = async (req: AuthRequest, res: Response) => {
     try {
+        const id = req.params.id as string;
         const website = await prisma.website.findFirst({
-            where: { id: req.params.id, user_id: req.user.id },
+            where: { id, user_id: req.user.id },
         });
 
         if (website) {
-            await prisma.website.delete({ where: { id: req.params.id } });
+            await prisma.website.delete({ where: { id } });
             res.json({ message: 'Website removed' });
         } else {
             res.status(404).json({ message: 'Website not found' });
@@ -100,13 +102,14 @@ export const updateWebsite = async (req: AuthRequest, res: Response) => {
     const { name, url, check_interval } = req.body;
 
     try {
+        const id = req.params.id as string;
         const website = await prisma.website.findFirst({
-            where: { id: req.params.id, user_id: req.user.id },
+            where: { id, user_id: req.user.id },
         });
 
         if (website) {
             const updatedWebsite = await prisma.website.update({
-                where: { id: req.params.id },
+                where: { id },
                 data: {
                     name: name || website.name,
                     url: url || website.url,

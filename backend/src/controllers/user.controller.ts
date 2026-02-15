@@ -32,10 +32,11 @@ export const getUsers = async (req: AuthRequest, res: Response) => {
 // @access  Private/Admin
 export const deleteUser = async (req: AuthRequest, res: Response) => {
     try {
-        const user = await prisma.user.findUnique({ where: { id: req.params.id } });
+        const id = req.params.id as string;
+        const user = await prisma.user.findUnique({ where: { id } });
 
         if (user) {
-            await prisma.user.delete({ where: { id: req.params.id } });
+            await prisma.user.delete({ where: { id } });
             res.json({ message: 'User removed' });
         } else {
             res.status(404).json({ message: 'User not found' });
