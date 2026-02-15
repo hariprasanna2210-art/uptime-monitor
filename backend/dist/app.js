@@ -29,6 +29,8 @@ const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const swagger_1 = require("./config/swagger");
 app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_1.specs));
 app.use(error_1.errorHandler);
+const monitor_service_1 = require("./services/monitor.service");
+(0, monitor_service_1.startMonitoring)();
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
