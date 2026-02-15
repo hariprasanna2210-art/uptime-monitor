@@ -33,8 +33,12 @@ import { specs } from './config/swagger';
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+
 app.use(errorHandler);
 
+import { startMonitor } from './services/monitor.service';
+startMonitor();
 
 const PORT = process.env.PORT || 5000;
 
