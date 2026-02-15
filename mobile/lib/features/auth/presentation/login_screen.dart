@@ -23,7 +23,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(next.error.toString())),
         );
-      } else if (!next.isLoading && !next.hasError && next.value == null) {
+      } else if (!next.isLoading && !next.hasError) {
           // Success (assuming guard returns null on success)
           // Ideally we check isLoggedIn or navigate on success
            // For now, if no error and not loading, try to go home if we pressed button

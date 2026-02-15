@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../data/website_repository.dart';
+import '../../dashboard/data/website_repository.dart';
 
 final websiteDetailsProvider = StateNotifierProvider.family<WebsiteDetailsNotifier, AsyncValue<dynamic>, String>((ref, id) {
   return WebsiteDetailsNotifier(ref.read(websiteRepositoryProvider), id);

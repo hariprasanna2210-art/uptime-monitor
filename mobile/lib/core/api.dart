@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-const String kBaseUrl = 'http://10.0.2.2:5000/api'; // Android Emulator localhost
+const String kBaseUrl = 'https://uptime-backend.onrender.com/api'; // Android Emulator localhost
 
 final dioProvider = Dio(BaseOptions(
   baseUrl: kBaseUrl,
