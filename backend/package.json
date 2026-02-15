@@ -34,6 +34,7 @@
     "morgan": "^1.10.0",
     "node-cron": "^3.0.3",
     "nodemailer": "^6.10.0",
+    "prisma": "^7.4.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "typescript": "^5.9.3",
@@ -44,7 +45,6 @@
     "@types/jsonwebtoken": "^9.0.8",
     "@types/node": "^22.13.4",
     "nodemon": "^3.1.9",
-    "prisma": "^6.3.1",
     "ts-node": "^10.9.2"
   }
 }
