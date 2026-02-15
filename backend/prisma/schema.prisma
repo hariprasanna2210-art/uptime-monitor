@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Status {
+  UP
+  DOWN
+}
+
+enum NotificationType {
+  EMAIL
+  PUSH
+}
+
+model User {
+  id            String    @id @default(uuid())
+  name          String
+  email         String    @unique
+  password_hash String
+  role          Role      @default(USER)
+  fcm_token     String?
+  created_at    DateTime  @default(now())
+  websites      Website[]
+  notifications Notification[]
+}
+
+model Website {
+  id                String       @id @default(uuid())
+  user_id           String
+  name              String
+  url               String
+  check_interval    Int          @default(5) // in minutes
+  last_status       Status       @default(UP)
+  last_checked_at   DateTime?
+  uptime_percentage Float        @default(100.0)
+  created_at        DateTime     @default(now())
+  user              User         @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  logs              StatusLog[]
+  notifications     Notification[]
+}
+
+model StatusLog {
+  id            String   @id @default(uuid())
+  website_id    String
+  status        Status
+  status_code   Int?
+  response_time Int?     // in ms
+  checked_at    DateTime @default(now())
+  website       Website  @relation(fields: [website_id], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id         String           @id @default(uuid())
+  user_id    String
+  website_id String?
+  type       NotificationType
+  message    String
+  sent_at    DateTime         @default(now())
+  user       User             @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  website    Website?         @relation(fields: [website_id], references: [id])
+}
